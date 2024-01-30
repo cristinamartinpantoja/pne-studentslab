@@ -1,6 +1,6 @@
-val = 1
-print(val)
-val = val + 1
-print(val)
-val = val + 1
-print(val)
+value = 1
+print(value)
+val = value + 1
+print(value)
+value = value + 1
+print(value)
