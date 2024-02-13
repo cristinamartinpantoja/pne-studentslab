@@ -32,3 +32,11 @@ def seq_complement(seq):
     for i in seq:
         if i in dict_of_bases:
             print(dict_of_bases[i], end = "")
+
+def seq_check(seq):
+    seq = seq.upper()
+    bases = ["A", "T", "C", "G"]
+
+    for i in seq:
+        if i not in bases:
+            return "Not valid"
