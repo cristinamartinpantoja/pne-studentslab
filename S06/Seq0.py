@@ -5,18 +5,13 @@ def seq_read_fasta(filename):
     body = Path(filename).read_text()[first_line:]
     body = body.replace("\n", "")
     return body
-def seq_len(filename):
-    first_line = Path(filename).read_text().find("\n")
-    body = Path(filename).read_text()[first_line:]
-    body = body.replace("\n", "")
-    return len(body)
+def seq_len(seq):
 
-def seq_count_base(filename, base):
-    first_line = Path(filename).read_text().find("\n")
-    body = Path(filename).read_text()[first_line:]
-    body = body.replace("\n", "")
-    base = len(body)
-    return base
+    return len(seq)
+
+def seq_count_base(seq, base):
+
+    return seq.count(base)
 
 def seq_count(seq):
     bases = {"A": 0, "C": 0, "T": 0, "G": 0}
@@ -24,9 +19,11 @@ def seq_count(seq):
         count = seq_count_base(seq, base)
         bases.update({base:count})
     return bases
-def seq_reverse(seq, n=0):
+
+def seq_reverse(seq):
     seq = seq[::-1]
-    return seq[:n]
+    return seq[:len(seq)]
+
 def seq_complement(seq):
     dict_of_bases = {"A": "T", "C": "G", "T": "A", "G": "C"}
     for i in seq:
