@@ -56,5 +56,6 @@ class Seq:
 
     def most_frequent(self):
         dict = self.seq_count()
-        highest = 0
+
+        highest =
         for
