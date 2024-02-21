@@ -1,58 +1,22 @@
-class Seq:
-    def __init__(self, strbases=None):
-        if strbases is None:
-            print("NULL sequence created")
-            self.strbases = ""
-            return
+from Seq1 import Seq
 
-        valid_bases = set('ATCG')
-        if set(strbases) <= valid_bases:
-            print("New sequence created!")
-            self.strbases = strbases
-        else:
-            print("INVALID sequence!")
-            self.strbases = ""
-
-    def __len__(self):
-        return len(self.strbases)
-
-    def count_base(self, base):
-        if self.strbases == "" or self.strbases == "ERROR":
-            return 0
-        return self.strbases.count(base)
-
-    def count(self):
-        if self.strbases == "" or self.strbases == "ERROR":
-            return {'A': 0, 'T': 0, 'C': 0, 'G': 0}
-
-        base_counts = {'A': 0, 'T': 0, 'C': 0, 'G': 0}
-        for base in self.strbases:
-            if base in base_counts:
-                base_counts[base] += 1
-        return base_counts
-
-    def reverse(self):
-        if self.strbases == "" or self.strbases == "ERROR":
-            return "ERROR"
-        return self.strbases[::-1]
-
-    def print_sequence(self, seq_number):
-        print(f"Sequence {seq_number}: (Length: {len(self)}) {self.strbases}")
-        bases_count = self.count()
-        print(f"  Bases: {bases_count}")
-        print(f"  Rev:   {self.reverse()}")
+def print_sequence(self, seq_number):
+    print(f"Sequence {seq_number}: (Length: {self.seq_len()}) {self.strbases}")
+    bases_count = self.seq_count()
+    print(f"  Bases: {bases_count}")
+    print(f"  Rev:   {self.seq_reverse()}")
 
 
 print("-----| Practice 1, Exercise 7 |------")
 
 # Creating a null sequence
 s1 = Seq()
-s1.print_sequence(0)
+print_sequence(s1, 0)
 
 # Creating a valid sequence
 s2 = Seq("ACTGA")
-s2.print_sequence(1)
+print_sequence(s2, 1)
 
 # Creating an invalid sequence
 s3 = Seq("Invalid sequence")
-s3.print_sequence(2)
+print_sequence(s3, 2)

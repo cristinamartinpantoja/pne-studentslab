@@ -1,16 +1,12 @@
-from Seq1 import seq_len
+from Seq1 import Seq
 
-class SequenceObject:
-    def __init__(self, sequence):
-        self.sequence = "ACTGA"
-
-    def seq_info(self):
-        print("Sequence: ", self.sequence)
-        print("Length: ", len(self.sequence))
+def seq_info(seq):
+    print("Sequence: ", seq)
+    print("Length: ", seq.seq_len())
 
 # Creating an object with the sequence "ACTGA"
-sequence_object = SequenceObject("ACTGA")
+sequence_object = Seq("ACTGA")
 
 # Printing length and sequence information
 print("-----| Practice 1, Exercise 1 |------")
-sequence_object.seq_info()
+seq_info(sequence_object)
