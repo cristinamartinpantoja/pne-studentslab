@@ -54,8 +54,14 @@ class Seq:
             if i not in bases:
                 return "Not valid"
 
-    def most_frequent(self):
-        dict = self.seq_count()
+    def most_frequent_base(self):
+        seq = self.strbases
+        bases_count = {'A': 0, 'G': 0, 'C': 0, 'T': 0}
 
-        highest =
-        for
+        for base in seq:
+            if base in bases_count:
+                bases_count[base] += 1
+
+        most_common = max(bases_count, key=bases_count.get)
+
+        return most_common
