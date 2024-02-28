@@ -7,17 +7,12 @@ class Client:
 
     def ping(self):
 
-        # Replace the following line with the actual code to send a ping to the server
-        # and receive the response.
         response = "OK!"
         print(response)
 
     def __str__(self):
 
-        IP = self.IP
-        PORT = self.PORT
-        c = Client(IP, PORT)
-        print(c)
+        return "Connection to SERVER at" + self.IP + ", PORT:" + str(self.PORT)
 
     def talk(self, msg):
 

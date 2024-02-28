@@ -1,13 +1,18 @@
 from Client0 import Client
 
-def test_client_talk():
-    # Creating a Client object
-    c = Client(IP="192.168.1.45", PORT=8080)  # Replace with your actual server address
+PRACTICE = 2
+EXERCISE = 3
 
-    print("-----| Practice 2, Exercise 3 |------")
+print(f"-----| Practice {PRACTICE}, Exercise {EXERCISE} |------")
 
-    print("Sending a message to the server...")
-    response = c.talk("Testing!!!")
-    print(f"Response: {response}")
+IP = "212.128.255.103" # your IP address
+PORT = 8081
 
-test_client_talk()
+# -- Create a client object
+c = Client(IP, PORT)
+print(c)
+
+print("Sending a message to the server...")
+response = c.talk("Testing!!!")
+print(f"Response: {response}")
+

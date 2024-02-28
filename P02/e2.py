@@ -1,10 +1,15 @@
-
 from Client0 import Client
 
+PRACTICE = 2
+EXERCISE = 2
 
-def testing_client_print(IP, PORT):
-    print("Connection to SERVER at", IP, ", PORT:", PORT)
+print(f"-----| Practice {PRACTICE}, Exercise {EXERCISE} |------")
 
+# -- Parameters of the server to talk to
+IP = "212.128.255.64" # your IP address
+PORT = 8081
 
-print("-----| Practice 2, Exercise 2 |------")
-testing_client_print("192.168.1.45", 8080)
+# -- Create a client object
+c = Client(IP, PORT)
+print(c)
+

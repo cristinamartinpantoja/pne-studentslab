@@ -4,7 +4,7 @@ from P01.Seq1 import Seq
 def send_gene_to_server(gene_name, gene_sequence):
 
     # Create a Client object
-    c = Client(IP="192.168.1.45", PORT=8080)
+    c = Client(IP="212.128.255.103", PORT=8081)
 
     # Print the message before sending the gene
     print(f"Sending the {gene_name} Gene to the server...")
