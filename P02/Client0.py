@@ -12,7 +12,7 @@ class Client:
 
     def __str__(self):
 
-        return "Connection to SERVER at" + self.IP + ", PORT:" + str(self.PORT)
+        return "Connection to SERVER at " + self.IP + ", PORT:" + str(self.PORT)
 
     def talk(self, msg):
 
