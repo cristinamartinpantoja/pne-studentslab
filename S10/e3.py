@@ -15,9 +15,11 @@ ls.listen()
 print("The server is configured!")
 
 count = 0
+list = []
 while True: ##To keep listening to different clients
     count += 1
     (rs, address) = ls.accept() ##Returns A taple that is the socket and the address. The server is waiting for a client to make a request
+    list.append("Client" + str(count) + ":" + str(address))
     print("CONNECTION", str(count), "Client ID, PORT: " + str(address))      ## if I write this in the terminal u get the client printed: echo "Hi!" | nc 212.128.255.103 8081
 
     msg = rs.recv(2048).decode("utf-8")  ##this message is in bytes and we need to convert them to code as a string
@@ -25,6 +27,10 @@ while True: ##To keep listening to different clients
 
     new_msg = "ECHO: " + msg        #We create a string that we are going to send to the server
     rs.send(new_msg.encode())
+
+    if count % 5 == 0:
+        for i in list:
+            print(i)
 
     rs.close() ##We close the socket of the client
 # -- Close the socket
