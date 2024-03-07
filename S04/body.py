@@ -1,3 +1,4 @@
+#S04 e3. Print the body of the sequence (without the header)
 from pathlib import Path
 
 FILENAME = "sequences/U5"

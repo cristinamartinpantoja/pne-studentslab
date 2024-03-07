@@ -1,12 +1,13 @@
+#S04 e5. Print the total number of bases
 from pathlib import Path
 
-FILENAME = "sequences/ADA"
+FILENAME = "../sequences/ADA"
 file_contents = Path(FILENAME).read_text()
 
 list_contents = file_contents.split("\n")
 list_contents.pop(0)
 
-print(len("".join(list_contents)))
+print("The total number of bases is: ",len("".join(list_contents)))
 
 #another option
 

@@ -1,3 +1,4 @@
+#S04 e3. Print the header
 from pathlib import Path
 
 FILENAME = "sequences/RNU6_269P"

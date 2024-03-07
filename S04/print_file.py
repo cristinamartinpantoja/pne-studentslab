@@ -1,3 +1,5 @@
+#S04 e2. Print the whole sequence
+
 from pathlib import Path
 
 # -- Constant with the new of the file to open
