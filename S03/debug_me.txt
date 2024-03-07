@@ -1,0 +1,2 @@
+#S03 e1 .Explain the error
+What happens is that there is a division by 0 in the result 2
