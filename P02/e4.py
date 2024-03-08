@@ -5,7 +5,7 @@ GENES_DIR = "../sequences/"
 PRACTICE = 2
 EXERCISE = 4
 
-IP = "212.128.255.103" # your IP address
+IP = "212.128.255.37" # your IP address
 PORT = 8081
 
 def get_file_path(gene):

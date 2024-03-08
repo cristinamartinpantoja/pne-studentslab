@@ -4,12 +4,12 @@ PRACTICE = 2
 EXERCISE = 6
 print(f"-----| Practice {PRACTICE}, Exercise {EXERCISE} |------")
 
-IP = "212.128.255.98" # your IP server address
+IP = "212.128.255.37" # your IP server address
 PORT = 8081
 c1 = Client(IP, PORT)
 print(c1)
 
-IP = "212.128.255.98" # your IP server address
+IP = "212.128.255.37" # your IP server address
 PORT = 8080
 c2 = Client(IP, PORT)
 print(c2)

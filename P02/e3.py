@@ -5,7 +5,7 @@ EXERCISE = 3
 
 print(f"-----| Practice {PRACTICE}, Exercise {EXERCISE} |------")
 
-IP = "212.128.255.103" # your IP address
+IP = "212.128.255.37" # your IP address
 PORT = 8081
 
 # -- Create a client object

@@ -1,8 +1,8 @@
-from Client import Client
+from Client0 import Client
 
 class SeqClient:
-    def __init__(self, host, port):
-        self.client = Client(host, port)
+    def __init__(self, IP, PORT):
+        self.client = Client(IP, PORT)
 
     def test_ping(self):
         print("* Testing PING...")
@@ -14,14 +14,14 @@ class SeqClient:
         response = self.client.talk(f"GET {num}")
         print(response)
 
-    def test_info(self, sequence):
+    def test_info(self, seq):
         print(f"* Testing INFO...")
-        response = self.client.talk(f"INFO {sequence}")
+        response = self.client.talk(f"INFO {seq}")
         print(response)
 
-    def test_comp(self, sequence):
+    def test_comp(self, seq):
         print(f"* Testing COMP...")
-        response = self.client.talk(f"COMP {sequence}")
+        response = self.client.talk(f"COMP {seq}")
         print(response)
 
     def test_rev(self, sequence):
@@ -34,18 +34,18 @@ class SeqClient:
         response = self.client.talk(f"GENE {gene_name}")
         print(response)
 
-if __name__ == "__main__":
-    client = SeqClient('127.0.0.1', 8080)
 
-    print("-----| Practice 3, Exercise 7 |------")
-    client.test_ping()
-    client.test_get(0)
+client = SeqClient('212.128.255.37', 8080)
 
-    sequence = "ACCTCCTCTCCAGCAATGCCAACCCCAGTCCAGGCCCCCATCCGCCCAGGATCTCGATCA"
-    client.test_info(sequence)
-    client.test_comp(sequence)
-    client.test_rev(sequence)
+print("-----| Practice 3, Exercise 7 |------")
+client.test_ping()
+client.test_get(0)
 
-    genes = ['U5', 'ADA', 'FRAT1', 'FXN', 'RNU6_269P']
-    for gene in genes:
-        client.test_gene(gene)
+sequence = "ACCTCCTCTCCAGCAATGCCAACCCCAGTCCAGGCCCCCATCCGCCCAGGATCTCGATCA"
+client.test_info(sequence)
+client.test_comp(sequence)
+client.test_rev(sequence)
+
+genes = ['U5', 'ADA', 'FRAT1', 'FXN', 'RNU6_269P']
+for gene in genes:
+    client.test_gene(gene)

@@ -3,7 +3,7 @@ from P01.Seq1 import Seq
 PRACTICE = 2
 EXERCISE = 5
 print(f"-----| Practice {PRACTICE}, Exercise {EXERCISE} |------")
-IP = "212.128.255.97" # your IP server address
+IP = "212.128.255.37" # your IP server address
 PORT = 8081
 
 c = Client(IP, PORT)
