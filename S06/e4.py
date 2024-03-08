@@ -15,7 +15,8 @@ class Seq:
             print("ERROR!!")
 
     def len(self):
-        return self.strbases
+
+        return len(self.strbases)
 
     def __str__(self):
         return self.strbases

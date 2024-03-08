@@ -1,35 +1,41 @@
+#otra forma de hacer la Seq0 aparte de la que ya tengo
 from pathlib import Path
-
+def seq_ping():
+    print("OK")
 def seq_read_fasta(filename):
     first_line = Path(filename).read_text().find("\n")
-    body = Path(filename).read_text()[first_line:]
-    body = body.replace("\n", "")
-    return body
+    seq = Path(filename).read_text()[first_line:]
+    seq = seq.replace("\n", "")
+    return seq
 def seq_len(seq):
-
     return len(seq)
 
 def seq_count_base(seq, base):
-
-    return seq.count(base)
-
-def seq_count(seq):
-    bases = {"A": 0, "C": 0, "T": 0, "G": 0}
-    for base in bases:
-        count = seq_count_base(seq, base)
-        bases.update({base:count})
-    return bases
-
-def seq_reverse(seq):
-    seq = seq[::-1]
-    return seq[:len(seq)]
-
-def seq_complement(seq):
-    dict_of_bases = {"A": "T", "C": "G", "T": "A", "G": "C"}
+    count = 0
     for i in seq:
-        if i in dict_of_bases:
-            print(dict_of_bases[i], end = "")
-
+        if i == base:
+            count += 1
+    return count
+def seq_count(seq):
+    dic = {"A": 0, "C": 0, "T": 0, "G": 0}
+    for i in seq:
+        if i in dic:
+            dic[i] +=1
+    return dic
+def seq_reverse(seq, n=0):
+    return seq[::-1]
+def seq_complement(seq):
+    complement = ""
+    for i in seq:
+        if i == "A":
+            complement += "T"
+        elif i == "T":
+            complement += "A"
+        elif i == "C":
+            complement += "G"
+        elif i == "G":
+            complement += "C"
+    return complement
 
 def seq_check(seq):
     seq = seq.upper()
