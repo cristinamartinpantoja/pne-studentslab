@@ -3,7 +3,6 @@ import os
 import socket
 import termcolor
 
-
 class Server:
     def __init__(self):
         port = 8080
