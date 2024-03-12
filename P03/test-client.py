@@ -5,7 +5,7 @@ EXERCISE = 7
 print(f"-----| Practice {PRACTICE}, Exercise {EXERCISE} |------")
 
 ip = "127.0.0.1"
-port = 8081
+port = 8080
 c = Client(ip, port)
 print(f"Connection to SERVER at {ip}, PORT: {port}")
 
