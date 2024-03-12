@@ -1,51 +1,27 @@
 from Client0 import Client
 
-class SeqClient:
-    def __init__(self, IP, PORT):
-        self.client = Client(IP, PORT)
+PRACTICE = 3
+EXERCISE = 7
+print(f"-----| Practice {PRACTICE}, Exercise {EXERCISE} |------")
 
-    def test_ping(self):
-        print("* Testing PING...")
-        response = self.client.talk("PING")
-        print(response)
+IP = "212.128.255.28"
+PORT = 8080
+c = Client(IP, PORT)
+print(f"Connection to SERVER at {IP}, PORT: {PORT}")
 
-    def test_get(self, num):
-        print(f"* Testing GET {num}...")
-        response = self.client.talk(f"GET {num}")
-        print(response)
+print("* Testing PING...")
+print(f"{c.talk('PING')}\n")
 
-    def test_info(self, seq):
-        print(f"* Testing INFO...")
-        response = self.client.talk(f"INFO {seq}")
-        print(response)
+print("* Testing GET...")
+print(f"GET 0: {c.talk('GET 0')}\nGET 1: {c.talk('GET 1')}\nGET 2: {c.talk('GET 2')}\nGET 3: {c.talk('GET 3')}\nGET 4: {c.talk('GET 4')}\n")
 
-    def test_comp(self, seq):
-        print(f"* Testing COMP...")
-        response = self.client.talk(f"COMP {seq}")
-        print(response)
+print("* Testing INFO...")
+print(f"{c.talk('INFO ACCTCCTCTCCAGCAATGCCAACCCCAGTCCAGGCCCCCATCCGCCCAGGATCTCGATCA')}\n")
 
-    def test_rev(self, sequence):
-        print(f"* Testing REV...")
-        response = self.client.talk(f"REV {sequence}")
-        print(response)
+print("* Testing COMP...")
+print(f"COMP ACCTCCTCTCCAGCAATGCCAACCCCAGTCCAGGCCCCCATCCGCCCAGGATCTCGATCA\n{c.talk('COMP ACCTCCTCTCCAGCAATGCCAACCCCAGTCCAGGCCCCCATCCGCCCAGGATCTCGATCA')}\n")
 
-    def test_gene(self, gene_name):
-        print(f"* Testing GENE...")
-        response = self.client.talk(f"GENE {gene_name}")
-        print(response)
+print("* Testing REV...")
+print(f"REV ACCTCCTCTCCAGCAATGCCAACCCCAGTCCAGGCCCCCATCCGCCCAGGATCTCGATCA\n{c.talk('REV ACCTCCTCTCCAGCAATGCCAACCCCAGTCCAGGCCCCCATCCGCCCAGGATCTCGATCA')}\n")
 
-
-client = SeqClient('212.128.255.37', 8080)
-
-print("-----| Practice 3, Exercise 7 |------")
-client.test_ping()
-client.test_get(0)
-
-sequence = "ACCTCCTCTCCAGCAATGCCAACCCCAGTCCAGGCCCCCATCCGCCCAGGATCTCGATCA"
-client.test_info(sequence)
-client.test_comp(sequence)
-client.test_rev(sequence)
-
-genes = ['U5', 'ADA', 'FRAT1', 'FXN', 'RNU6_269P']
-for gene in genes:
-    client.test_gene(gene)
+print(f"* Testing GENE...\nGENE U5\n{c.talk('GENE U5')}\n\nGENE ADA\n{c.talk('GENE ADA')}\n\nGENE FRAT1\n{c.talk('GENE FRAT1')}\n\nGENE FXN\n{c.talk('GENE FXN')}\n\nGENE RNU6_269P\n{c.talk('GENE RNU6_269P')}")

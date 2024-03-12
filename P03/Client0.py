@@ -14,24 +14,18 @@ class Client:
 
         return "Connection to SERVER at " + self.IP + ", PORT:" + str(self.PORT)
 
+
+
+    # talk method in the Client class
     def talk(self, msg):
-
-        # -- Create the socket
+        print(f"Connecting to {self.IP}:{self.PORT}")
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-        # establish the connection to the Server (IP, PORT)
-        s.connect((self.IP, self.PORT))
-
-        # Send data.
-        s.send(str.encode(msg))
-
-        # Receive data
-        response = s.recv(2048).decode("utf-8")
-
-        # Close the socket
-        s.close()
-
-        # Return the response
-        return response
+        try:
+            s.connect((self.IP, self.PORT))
+            # rest of the code...
+        except Exception as e:
+            print(f"Error connecting to the server: {e}")
+        finally:
+            s.close()
 
 
