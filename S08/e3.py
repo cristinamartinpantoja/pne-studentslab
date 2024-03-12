@@ -1,21 +1,20 @@
 import socket
 
-# SERVER IP, PORT
-# Write here the correct parameter for connecting to the
-# Teacher's server
 PORT = 8081
-IP = "212.128.255.64" # it depends on the machine the server is running
+IP = "212.128.255.28"
 
-# First, create the socket
-# We will always use these parameters: AF_INET y SOCK_STREAM
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+while True:
+    #Ask the user for a message
+    user_message = input("Enter your message")
 
-# establish the connection to the Server (IP, PORT)
-s.connect((IP, PORT))
+    #Create a socket
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-# Send data. No strings can be sent, only bytes
-# It necesary to encode the string into bytes
-s.send(str.encode("HELLO FROM THE CLIENT!!!"))
+    #Establish the connection to the sever
+    s.connect((IP , PORT))
 
-# Close the socket
-s.close()
+    #Send the user message
+    s.sendall(user_message.encode("utf-8"))
+
+    #Close the socket
+    s.close()
