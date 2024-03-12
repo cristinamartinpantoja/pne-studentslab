@@ -1,31 +1,32 @@
 import socket
-class Client:
-    def __init__(self, IP, PORT):
 
-        self.IP = IP
-        self.PORT = PORT
-
-    def ping(self):
-
-        response = "OK!"
-        print(response)
+class Client:         #crear cliente con ip y port del servidor
+    def __init__(self, ip: str, port: int):    #ip y port del servidor
+        self.ip = ip
+        self.port = port
 
     def __str__(self):
+        return f"Connection to SERVER at {self.ip}, PORT: {self.port}"
 
-        return "Connection to SERVER at " + self.IP + ", PORT:" + str(self.PORT)
+    def ping(self):
+        print("OK!")
 
-
-
-    # talk method in the Client class
     def talk(self, msg):
-        print(f"Connecting to {self.IP}:{self.PORT}")
+        # import socket podría ir aquí también
+        # -- Create the socket: es el socket del cliente
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        try:
-            s.connect((self.IP, self.PORT))
-            # rest of the code...
-        except Exception as e:
-            print(f"Error connecting to the server: {e}")
-        finally:
-            s.close()
 
+        # establish the connection to the Server (IP, PORT)
+        s.connect((self.ip, self.port))
 
+        # Send data.
+        s.send(str.encode(msg))
+
+        # Receive data
+        response = s.recv(2048).decode("utf-8")
+
+        # Close the socket
+        s.close()
+
+        # Return the response
+        return response

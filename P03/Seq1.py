@@ -36,9 +36,16 @@ class Seq:
             bases.update({base:count})
         return bases
 
-    def seq_reverse(self):
-        seq = self.strbases[::-1]
-        return seq[:len(seq)]
+    def reverse(self):
+        if self.strbases == None:
+            return "NULL"
+        else:
+            for i in self.strbases:
+                if i == "A" or i == "C" or i == "T" or i == "G":
+                    seq_n = self.strbases[:len(self.strbases)]
+                    return seq_n[::-1]
+                else:
+                    return "ERROR"
 
     def seq_complement(self):
         dict_of_bases = {"A": "T", "C": "G", "T": "A", "G": "C"}

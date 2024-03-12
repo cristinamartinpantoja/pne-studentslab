@@ -38,7 +38,7 @@ class Seq:
 
     def seq_reverse(self):
         seq = self.strbases[::-1]
-        return seq[:len(seq)]
+        return seq
 
     def seq_complement(self):
         dict_of_bases = {"A": "T", "C": "G", "T": "A", "G": "C"}
