@@ -5,7 +5,7 @@ import termcolor
 
 class Server:
     def __init__(self):
-        port = 8080
+        port = 8081
         ip = "127.0.0.1"
 
         # create an INET, STREAMing socket

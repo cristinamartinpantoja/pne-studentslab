@@ -48,10 +48,22 @@ class Seq:
                     return "ERROR"
 
     def seq_complement(self):
-        dict_of_bases = {"A": "T", "C": "G", "T": "A", "G": "C"}
-        for i in self.strbases:
-            if i in dict_of_bases:
-                print(dict_of_bases[i], end = "")
+        complement = ""
+        if self.strbases == None:
+            return "NULL"
+        else:
+            for base in self.strbases:
+                if base == "A":
+                    complement += "T"
+                elif base == "G":
+                    complement += "C"
+                elif base == "C":
+                    complement += "G"
+                elif base == "T":
+                    complement += "A"
+                else:
+                    return "ERROR"
+        return complement
 
     def seq_check(self):
         seq = self.strbases.upper()
