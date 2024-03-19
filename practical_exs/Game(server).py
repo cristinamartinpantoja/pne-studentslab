@@ -1,51 +1,44 @@
-import socket
 import random
-class Server:
+import socket
+
+class NumberGuessingGame:
     def __init__(self):
-        port = 8080
-        ip = "127.0.0.1"
-        secret_number  = random.randint(1, 100).
+        self.secret_number = random.randint(1, 100)
+        self.attempts = 0
 
-        # create an INET, STREAMing socket
-        serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        try:
-            serversocket.bind((ip, port))
-            # become a server socket
-            serversocket.listen()
-            print("Server configured!")
-            while True:
-                # accept connections from outside
-                print("\nWaiting for clients...")
-                (clientsocket, address) = serversocket.accept()
+    def check_guess(self, guess):
+        self.attempts += 1
+        if guess < self.secret_number:
+            return "higher"
+        elif guess > self.secret_number:
+            return "lower"
+        else:
+            return "correct"
 
-                # Read the message from the client, if any
-                msg = clientsocket.recv(2048).decode("utf-8")
-                # Send the message from the server
-                clientsocket.send(msg)
-                clientsocket.close()
 
-        except socket.error:
-            print("Problems using ip {} port {}. Is the IP correct? Do you have port permission?".format(ip, port))
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_socket.bind(('localhost', 12345))
+server_socket.listen(1)
+print("Waiting for connection...")
+connection, address = server_socket.accept()
+print("Connected to:", address)
 
-        except KeyboardInterrupt:
-            print("Server stopped by the user")
-            serversocket.close()
+game = NumberGuessingGame() #object
 
-    class NumberGuesses():
+while True:
+    try:
+        data = connection.recv(1024)
+        if not data:
+            break
+        guess = int(data.decode())
+        result = game.check_guess(guess)
+        connection.sendall(result.encode())
+        if result == "correct":
+            print(f"Player found the number in {game.attempts} attempts.")
+            connection.sendall(str(game.attempts).encode())
+            break
+    except ValueError:
+        connection.sendall("invalid".encode())
 
-        def __int__(self, secret_number):
-            self.secret_number = secret_number
-        def guess(self, secret_number):
-            guessing = True
-            while guessing:
-                attempt = int(input('Enter an integer : '))
-                if attempt == secret_number:
-                    print('Congratulations, you guessed it.')
-                    guessing = False
-                elif attempt < secret_number:
-                    print("No, I'm afraid it is a little higher than that.")
-
-                else:
-                    print("No, I'm afraid it is a little lower than that.")
-
-s = Server()
+connection.close()
+server_socket.close()

@@ -1,21 +1,33 @@
-from Client0 import Client
+import socket
 
-ip = "127.0.0.1"
-port = 8080
-c = Client(ip, port)
-print(f"Connection to SERVER at {ip}, PORT: {port}")
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(('localhost', 12345))
 
-secret_number = input("enter a guess")
-guessing = True
-while guessing:
-    attempt = int(input('Enter an integer : '))
-    if attempt == secret_number:
-        print('Congratulations, you guessed it.')
-        guessing = False
-    elif attempt < secret_number:
-        print("No, I'm afraid it is a little higher than that.")
+print("Welcome to the Number Guessing Game!")
+print("Try to guess the number between 1 and 100.")
+
+while True:
+    guess = input("Enter your guess: ")
+    if not guess.isdigit():
+        print("Please enter a valid number.")
+        continue
+
+    client_socket.sendall(guess.encode())
+    response = client_socket.recv(1024).decode()
+
+    if response == "higher":
+        print("Try a higher number.")
+    elif response == "lower":
+        print("Try a lower number.")
+    elif response == "correct":
+        print("Congratulations you guessed the number!")
+        attempts = client_socket.recv(1024).decode()
+        print(f"Number of attempts: {attempts}")
+        break
     else:
-        print("No, I'm afraid it is a little lower than that.")
+        print("Invalid input. Please enter a number.")
+
+client_socket.close()
 
 
 
