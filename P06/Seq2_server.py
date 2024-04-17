@@ -1,9 +1,9 @@
-from Seq1 import Seq
-import os
 import http.server
 import socketserver
 import termcolor
 from pathlib import Path
+from Seq0 import Seq
+import os
 
 # Define the Server's port
 PORT = 8080
@@ -19,7 +19,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
         """This method is called whenever the client invokes the GET method
         in the HTTP protocol request"""
-
+        seq = ""
+        s = Seq(seq)
         # Print the request line
         termcolor.cprint(self.requestline, 'green')
 
@@ -27,12 +28,57 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         # We are NOT processing the client's request
         # It is a happy server: It always returns a message saying
         # that everything is ok
+        import jinja2 as j
+        def read_html_file(filename):
+            contents = Path("html/" + filename).read_text()
+            contents = j.Template(contents)
+            return contents
 
         # Message to send back to the client
-        if self.requestline.startswith("PING"):
-            contents = "Access to the Server. Is the server alive ?"
+        if self.requestline.startswith("GET / ") or self.requestline.startswith("GET /index"):
+            contents = Path("../P06/html/index.html").read_text()
+        elif self.requestline.startswith("GET /ping?"):
+            contents = Path("../P06/html/ping.html").read_text()
+
+        elif self.requestline.startswith("GET /actions?sequences"):
+            dict = {"0": "ACGTAGTCAGTAGTAGCTAGC", "1": "GATCCCAGTTAAGA", "2": "ACTGTGGGCATATAATCAGCGAGCA", "3": "TCAGTAGCTAGCTAGCTAGTCAGCTAGC", "4": "CGGCTAGCTAGCTAGTCGATCGATCGATGCA"}
+            num = self.requestline[23:]
+            num = num[0]
+            if num in dict:
+                sequence = dict[num]
+                contents = read_html_file("sequences.html").render(context={"name": num, "todisplay": sequence})
+
+        elif self.requestline.startswith("GET /actions?genes"):
+            list = ["U5", "ADA", "FRAT1", "FXN", "RNU6_269P"]
+            name = self.requestline[19:]
+            name = name[:-9]
+            if name in list:
+                text = s.read_fasta(f"../Sequences/{name}.txt")
+                contents = read_html_file("genes.html").render(context={"name": name, "todisplay": text})
+
+        elif self.requestline.startswith("GET /actions?msg"):
+            new = self.requestline.split("&")
+            msg = new[0]
+            seq = msg[17:]
+            op = new[1]
+            op = op[9:-9]
+            result = ""
+            s = Seq(seq)
+            if op == "info":
+                result = f"""Length of sequence: {str(s.length())}<br>
+A: {s.count("A")}<br>
+C: {s.count("C")}<br>
+T: {s.count("T")}<br>
+G: {s.count("G")}"""
+            elif op == "comp":
+                result = s.comp()
+            elif op == "rev":
+                result = s.rev()
+            contents = read_html_file("operation.html").render(context={"sequence": seq, "operation": op, "results": result})
+
         else:
             contents = Path("../S14/error.html").read_text()
+
 
         # Generating the response message
         self.send_response(200)  # -- Status line: OK!
@@ -69,60 +115,3 @@ with socketserver.TCPServer(("", PORT), Handler) as httpd:
         print("")
         print("Stopped by the user")
         httpd.server_close()
-
-    def what_appears_on_clients(self, msg):
-        if msg == "PING":
-            print("Ping command!\nOK!")
-            return "OK"
-
-        elif msg.startswith("GET"):
-            GENES = ["U5", "RNU6_269P", "FXN", "FRAT1", "ADA"]
-            for gene in GENES:
-                index = GENES.index(gene)
-                if 0 <= index <= 4:
-                    if msg == f"GET {index}":
-                        s = Seq()
-                        s.seq_read_fasta(os.path.join("..", "sequences", gene))
-                        termcolor.cprint("GET", 'green')
-                        print(str(s))
-                        return str(s)
-
-        elif msg.startswith("INFO"):
-            gene = msg.split(" ")
-            gene = gene[1]
-            seq = Seq(gene)
-            total_len = seq.seq_len()
-            len = total_len
-            c_a = f"A: {seq.seq_count_base('A')} ({((seq.seq_count_base('A') / total_len) * 100)}%)"
-            c_g = f"G: {seq.seq_count_base('G')} ({((seq.seq_count_base('G') / total_len) * 100)}%)"
-            c_c = f"C: {seq.seq_count_base('C')} ({((seq.seq_count_base('C') / total_len) * 100)}%)"
-            c_t = f"T: {seq.seq_count_base('T')} ({((seq.seq_count_base('T') / total_len) * 100)}%)"
-            print(f"Sequence: {seq}\nTotal length: {len}\n{c_a}\n{c_g}\n{c_c}\n{c_t}")
-            return f"Sequence: {seq}\nTotal length: {len}\n{c_a}\n{c_g}\n{c_c}\n{c_t}"
-
-        elif msg.startswith("COMP"):
-            gene = msg.split(" ")
-            gene = gene[1]
-            seq = Seq(gene)
-            termcolor.cprint("COMP", 'green')
-            print(seq.seq_complement())
-            return seq.seq_complement()
-
-        elif msg.startswith("REV"):
-            gene = msg.split(" ")
-            gene = gene[1]
-            seq = Seq(gene)
-            termcolor.cprint("REV", 'green')
-            print(seq.reverse())
-            return seq.reverse()
-
-        elif msg.startswith("GENE"):
-            gene = msg.split(" ")
-            gene = gene[1]
-            genes = ["U5", "FRAT1", "FXN", "RNU6_269P", "ADA"]
-            if gene in genes:
-                termcolor.cprint("GENE  ", 'green')
-                s = Seq()
-                s.seq_read_fasta(os.path.join("..", "sequences", gene))
-                print(str(s))
-                return str(s)
