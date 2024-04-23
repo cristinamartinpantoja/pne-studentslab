@@ -11,7 +11,6 @@ PORT = 8080
 # -- This is for preventing the error: "Port already in use"
 socketserver.TCPServer.allow_reuse_address = True
 
-
 # Class with our Handler. It is a called derived from BaseHTTPRequestHandler
 # It means that our class inherits all his methods and properties
 class TestHandler(http.server.BaseHTTPRequestHandler):
@@ -94,7 +93,6 @@ G: {s.count("G")}"""
         self.wfile.write(contents.encode())
 
         return
-
 
 # ------------------------
 # - Server MAIN program
