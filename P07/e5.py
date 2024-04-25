@@ -2,7 +2,7 @@ from e2 import genes
 import http.client
 import json
 import termcolor
-from Seq2 import Seq
+from Seq1 import Seq
 
 
 for name in genes.keys():

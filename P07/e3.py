@@ -2,28 +2,28 @@ import http.client
 import json
 import termcolor
 
-SERVER = "rest.ensembl.org"
-ENDPOINT = "/sequence/id/ENSG00000207552"
-PARAMS = "?content-type=application/json"
-URL = SERVER + ENDPOINT + PARAMS
+server = "rest.ensembl.org"
+resource = "/sequence/id/ENSG00000207552"
+params = "?content-type=application/json"
+URL = server + resource + params
 
 print()
-print(f"Server {SERVER}")
+print(f"Server {server}")
 print(f"URL {URL}")
 
-conn = http.client.HTTPConnection(SERVER)
+conn = http.client.HTTPConnection(server)
 
 try:
-    conn.request("GET", ENDPOINT+PARAMS)
+    conn.request("GET", resource + params)
 except ConnectionRefusedError:
     print("ERROR! Cannot connect to the Server")
     exit()
 
-r1 = conn.getresponse()
-print(f"Response received!: {r1.status} {r1.reason}\n")
-data1 = r1.read().decode("utf-8")
+response = conn.getresponse()
+print(f"Response received!: {response.status} {response.reason}\n")
+data_str = response.read().decode("utf-8")
 
-person = json.loads(data1)
+person = json.loads(data_str)
 
 termcolor.cprint("Gene: ", color="green", end="")
 print("MIR633")
