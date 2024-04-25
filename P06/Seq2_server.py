@@ -4,6 +4,7 @@ import termcolor
 from pathlib import Path
 import jinja2 as j
 from urllib.parse import parse_qs, urlparse
+from Seq1 import Seq
 
 def read_html_file(filename):
     contents = Path("html/" + filename).read_text()
@@ -20,6 +21,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         url_path = urlparse(self.path)
         path = url_path.path
         arguments = parse_qs(url_path.query)
+        s = Seq
 
         GENES = ["U5", "ADA", "FRAT1", "RNU6_269P", "FXN"]
         termcolor.cprint(self.requestline, 'green')
