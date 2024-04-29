@@ -50,7 +50,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                         msg += line
                     contents = read_html_file("gene.html").render(context={"todisplay": str(msg), "gene": str(gene)})
         elif self.path.startswith("/operation"):
-            msg = arguments['msg'][0]
+            msg = arguments['msg'][0].upper()
             if self.path.endswith("Info"):
                 total_len = len(msg)
                 a_a = f"A: {msg.count('A')} ({((msg.count('A') / total_len) * 100):.1f}%)"

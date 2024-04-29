@@ -38,14 +38,14 @@ if name in genes:
     print(person["desc"])
     seq = person["seq"]
 
-    s = Seq
+    s = Seq()
     termcolor.cprint("Total length of the sequence: ", color="green", end="")
-    print(s.len)
+    print(s.seq_len)
     bases = {"A": 0, "G": 0, "T": 0, "C": 0}
     for i in bases.keys():
         termcolor.cprint(i + ": ", color="blue", end="")
-        print(s.count(i))
-        count = s.count(i).split(" ")
+        print(s.seq_count(i))
+        count = s.seq_count(i).split(" ")
         bases[i] += int(count[0])
 
     termcolor.cprint("Most frequent base: ", color="green", end="")
