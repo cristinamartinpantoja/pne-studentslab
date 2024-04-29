@@ -2,11 +2,9 @@ import socket
 from pathlib import Path
 import termcolor
 
-
 # -- Server network parameters
 IP = "127.0.0.1"
 PORT = 8080
-
 
 def process_client(s):
     # -- Receive the request message
@@ -23,25 +21,25 @@ def process_client(s):
 
     print("Request line: ", end="")
     termcolor.cprint(req_line, "green")
-    read_fileA= Path("html/info/A.html").read_text()
-    read_fileC = Path("html/info/C.html").read_text()
-    read_fileG = Path("html/info/G.html").read_text()
-    read_fileT = Path("html/info/T.html").read_text()
-    read_file_error = Path("html/error.html").read_text()
-    read_file_index = Path("html/index.html").read_text()
+    r_A= Path("html/info/A.html").read_text()
+    r_C = Path("html/info/C.html").read_text()
+    r_G = Path("html/info/G.html").read_text()
+    r_T = Path("html/info/T.html").read_text()
+    read_error = Path("html/error.html").read_text()
+    read_index = Path("html/index.html").read_text()
 
     if "info/A" in req_line:
-        body = read_fileA
+        body = r_A
     elif "info/C" in req_line:
-        body = read_fileC
+        body = r_C
     elif "info/G" in req_line:
-        body = read_fileG
+        body = r_G
     elif "info/T" in req_line:
-        body = read_fileT
+        body = r_T
     elif "" in req_line:
-        body = read_file_index
+        body = read_index
     else:
-        body = read_file_error
+        body = read_error
     # -- Status line: We respond that everything is ok (200 code)
     status_line = "HTTP/1.1 200 OK\n"
 
