@@ -5,11 +5,11 @@ import termcolor
 server = "rest.ensembl.org"
 resource = "/sequence/id/ENSG00000207552"
 params = "?content-type=application/json"
-URL = server + resource + params
+url = server + resource + params
 
 print()
 print(f"Server {server}")
-print(f"URL {URL}")
+print(f"URL {url}")
 
 conn = http.client.HTTPConnection(server)
 

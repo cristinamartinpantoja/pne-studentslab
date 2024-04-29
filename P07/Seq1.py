@@ -3,29 +3,26 @@ class Seq:
     def __init__(self, seq):
         self.seq = seq
 
-    def len(self):
+    def seq_len(self):
         return len(self.seq)
 
-    def count(self, b):
+    def seq_count(self, b):
         base = self.seq.count(b)
         percentage = (base/len(self.seq) * 100)
-
         return str(base) + " (" + str(percentage) + "%)"
 
-    def comp(self):
+    def seq_complement(self):
         dict_of_bases = {"A": "T", "T": "A", "C": "G", "G": "C"}
-        r_seq = ""
+        my_seq = ""
         for i in self.seq:
             if i in dict_of_bases:
-                r_seq += dict_of_bases[i]
+                my_seq += dict_of_bases[i]
+        return my_seq
 
-        return r_seq
-
-    def rev(self):
+    def seq_reverse(self):
         seq1 = self.seq[::-1]
-        rev_seq = seq1[:self.len()]
-
-        return rev_seq
+        reverse_seq = seq1[:self.seq_len()]
+        return reverse_seq
 
     def read_fasta(self, filename):
         file_contents = Path(filename).read_text()
