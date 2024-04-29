@@ -23,11 +23,25 @@ def process_client(s):
 
     print("Request line: ", end="")
     termcolor.cprint(req_line, "green")
+    read_fileA= Path("html/info/A.html").read_text()
+    read_fileC = Path("html/info/C.html").read_text()
+    read_fileG = Path("html/info/G.html").read_text()
+    read_fileT = Path("html/info/T.html").read_text()
+    read_file_error = Path("html/error.html").read_text()
     read_file_index = Path("html/index.html").read_text()
 
-    if "127.0.0.1:8080" in req_line:
+    if "info/A" in req_line:
+        body = read_fileA
+    elif "info/C" in req_line:
+        body = read_fileC
+    elif "info/G" in req_line:
+        body = read_fileG
+    elif "info/T" in req_line:
+        body = read_fileT
+    elif "" in req_line:
         body = read_file_index
-
+    else:
+        body = read_file_error
     # -- Status line: We respond that everything is ok (200 code)
     status_line = "HTTP/1.1 200 OK\n"
 
@@ -40,8 +54,6 @@ def process_client(s):
     # -- Build the message by joining together all the parts
     response_msg = status_line + header + "\n" + body
     cs.send(response_msg.encode())
-
-
 
 
 ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
