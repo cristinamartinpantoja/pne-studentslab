@@ -4,7 +4,7 @@ import termcolor
 from pathlib import Path
 import jinja2 as j
 from urllib.parse import parse_qs, urlparse
-from Seq1 import Seq
+
 
 def read_html_file(filename):
     contents = Path("html/" + filename).read_text()
@@ -21,7 +21,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         url_path = urlparse(self.path)
         path = url_path.path
         arguments = parse_qs(url_path.query)
-        s = Seq
+
 
         GENES = ["U5", "ADA", "FRAT1", "RNU6_269P", "FXN"]
         termcolor.cprint(self.requestline, 'green')
@@ -58,7 +58,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 a_g = f"G: {msg.count('G')} ({((msg.count('G') / total_len) * 100):.1f}%)"
                 a_t = f"T: {msg.count('T')} ({((msg.count('T') / total_len) * 100):.1f}%)"
                 info_msg = f"Total length: {len(msg)}\n {a_a}\n {a_c}\n {a_g}\n {a_t}"
-                contents = read_html_file("operation.html").render(context={"result": info_msg, "operation": "info", "sequence": msg})
+                contents = read_html_file("operation.html").render(context={"result": info_msg, "operation": "Information about the sequence", "sequence": msg})
             elif self.path.endswith("Comp"):
                 complement = ""
                 for base in msg:
@@ -70,11 +70,11 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                             complement += "G"
                         elif base == "T":
                             complement += "A"
-                contents = read_html_file("operation.html").render(context={"result": complement, "operation": "comp", "sequence": msg})
+                contents = read_html_file("operation.html").render(context={"result": complement, "operation": "Complement sequence", "sequence": msg})
             elif self.path.endswith("Rev"):
                 seq_n = msg[:len(msg)]
                 reverse = seq_n[::-1]
-                contents = read_html_file("operation.html").render(context={"result": reverse, "operation": "rev", "sequence": msg})
+                contents = read_html_file("operation.html").render(context={"result": reverse, "operation": "Reverse sequence", "sequence": msg})
 
         else:
             contents = Path("html/error.html").read_text()
