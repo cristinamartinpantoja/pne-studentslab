@@ -1,5 +1,3 @@
-
-
 import http.server
 import socketserver
 import termcolor
@@ -23,8 +21,8 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
         # Print the request line
         termcolor.cprint(self.requestline, 'green')
-        if self.path == "/":
-            contents = Path('html/form-2.html').read_text()
+        if self.path == "/FORM e1":
+            contents = Path('html/form-e1.html').read_text()
         else:
             contents = Path('html/error.html').read_text()
 
