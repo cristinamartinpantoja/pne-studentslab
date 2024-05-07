@@ -1,6 +1,6 @@
 import socket
 import termcolor
-from Seq1 import Seq
+from Seq2 import Seq
 class Client:
     def __init__(self, IP, PORT):
         self.ip = IP
