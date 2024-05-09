@@ -51,7 +51,6 @@ class Seq:
 
         return base + ": " + str(base_count) + " (" + str(percentage) + "%)"
 
-
 class TestHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
         termcolor.cprint(self.requestline, 'green')
@@ -110,7 +109,6 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             for i in range(number):
                 name = person["species"][i]["common_name"].capitalize()
                 names.append(name)
-
             if application_type == "json=1":
                contents, content_type = json_file(names, "listSpecies.json")
             else:
