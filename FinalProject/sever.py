@@ -69,14 +69,14 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             contents = j.Template(contents)
             return contents
 
-        def sci_name(specie):
+        def name_spe(specie):
             specie = specie.replace("+", " ").strip().lower()
-            sci_specie = ""
+            specie_all = ""
             person = data("/info/species")
             for i in person["species"]:
                 if i["display_name"].lower() == specie.lower():
-                    sci_specie = i["name"]
-            return sci_specie
+                    specie_all = i["name"]
+            return specie_all
 
         def json_file(name, filename):
             json_dict = {}
@@ -116,7 +116,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         elif action == "/karyotype":
             specie = instruction[8:]
             chromosomes = []
-            sci_specie = sci_name(specie)
+            sci_specie = name_spe(specie)
             if sci_specie:
                 person1 = data("/info/assembly/" + sci_specie)
                 if person1["karyotype"]:
@@ -134,7 +134,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             chromosomerequest = instruction.split("&")
             specie = chromosomerequest[0][8:]
             number = chromosomerequest[1][7:]
-            sci_specie = sci_name(specie)
+            sci_specie = name_spe(specie)
             if sci_specie:
                 person1 = data("/info/assembly/" + sci_specie)
                 length = person1["top_level_region"][int(number)]["length"]
@@ -181,14 +181,14 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 contents = read_html_file("geneCalc.html").render(context=calc_dict)
         elif action == "/geneList":
             information = instruction.split("&")
-            chromo = information[0][7:]
+            chromosome = information[0][7:]
             start = information[1][6:]
             end = information[2][4:]
-            person = data("/phenotype/region/homo_sapiens/" + chromo + ":" + start + "-" + end)
+            person = data("/phenotype/region/homo_sapiens/" + chromosome + ":" + start + "-" + end)
             names = []
             for i in range(len(person)):
                 names.append(person[i]["id"])
-            list_dict = {"chromosome": chromo, "start": start, "end": end, "names": names}
+            list_dict = {"chromosome": chromosome, "start": start, "end": end, "names": names}
             if application_type == "json=1":
                 contents, content_type = json_file(list_dict, "geneList.json")
             else:
