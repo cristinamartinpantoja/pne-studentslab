@@ -9,50 +9,47 @@ import jinja2 as j
 PORT = 8080
 socketserver.TCPServer.allow_reuse_address = True
 def data(ENDPOINT):
-    SERVER = "rest.ensembl.org"
-    PARAMS = "?content-type=application/json"
-    URL = SERVER + ENDPOINT + PARAMS
+    server = "rest.ensembl.org"
+    params = "?content-type=application/json"
+    url = server + ENDPOINT + params
 
-    print()
-    print(f"Server {SERVER}")
-    print(f"URL {URL}")
+    print(f"Server {server}")
+    print(f"URL {url}")
 
-    conn = http.client.HTTPConnection(SERVER)
+    conn = http.client.HTTPConnection(server)
 
     try:
-        conn.request("GET", ENDPOINT + PARAMS)
+        conn.request("GET", ENDPOINT + params)
     except ConnectionRefusedError:
         print("ERROR! Cannot connect to the Server")
         exit()
 
-    r1 = conn.getresponse()
-    print(f"Response received!: {r1.status} {r1.reason}\n")
-    data1 = r1.read().decode("utf-8")
-
+    response = conn.getresponse()
+    print(f"Response received!: {response.status} {response.reason}\n")
+    data1 = response.read().decode("utf-8")
     person = json.loads(data1)
-
     return person
 
 class Seq:
     def __init__(self, gene):
         self.gene = gene
 
-    def getting_seq(self):
+    def get_sequence(self):
         person = data("/lookup/symbol/homo_sapiens/" + self.gene)
         name = person["id"]
         person1 = data("sequence/id/" + name)
         seq = person1["seq"]
         return seq
-    def length(self):
-        seq = self.getting_seq()
+    def len(self):
+        seq = self.get_sequence()
         return len(seq)
 
-    def count(self, b):
-        seq = self.getting_seq()
-        base = seq.count(b)
-        percentage = round((base/len(seq) * 100), 2)
+    def count(self, base):
+        seq = self.get_sequence()
+        base_count = seq.count(base)
+        percentage = round((base_count/len(seq) * 100), 2)
 
-        return b + ": " + str(base) + " (" + str(percentage) + "%)"
+        return base + ": " + str(base_count) + " (" + str(percentage) + "%)"
 
 
 class TestHandler(http.server.BaseHTTPRequestHandler):
@@ -97,7 +94,6 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
             contents = Path(filename).read_text()
             content_type = 'application/json'
-
             return contents, content_type
 
         if action == "/" or action == "/index.html":
