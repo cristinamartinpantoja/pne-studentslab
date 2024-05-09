@@ -97,7 +97,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
         if action == "/" or action == "/index.html":
             content_type = "html"
-            contents = open("/html/index.html").read()
+            contents = open("index.html").read()
         elif action == "/listSpecies":
             person = data("/info/species")
             total = len(person["species"])
