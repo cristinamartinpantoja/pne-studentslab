@@ -40,7 +40,7 @@ class Seq:
         person1 = data("sequence/id/" + name)
         seq = person1["seq"]
         return seq
-    def len(self):
+    def seq_len(self):
         seq = self.get_sequence()
         return len(seq)
 
@@ -98,7 +98,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
         if action == "/" or action == "/index.html":
             content_type = "html"
-            contents = open("../Final project/html/index.html").read()
+            contents = open("/html/index.html").read()
         elif action == "/listSpecies":
             person = data("/info/species")
             total = len(person["species"])
@@ -131,11 +131,11 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 else:
                     contents = read_html_file("karyotype.html").render(context={"chromosomes": chromosomes})
             else:
-                contents = open("../Final project/html/error.html").read()
+                contents = open("/html/error.html").read()
         elif action == "/chromosomeLength":
-            chromrequest = instruction.split("&")
-            specie = chromrequest[0][8:]
-            number = chromrequest[1][7:]
+            chromosomerequest = instruction.split("&")
+            specie = chromosomerequest[0][8:]
+            number = chromosomerequest[1][7:]
             sci_specie = sci_name(specie)
             if sci_specie:
                 person1 = data("/info/assembly/" + sci_specie)
@@ -145,7 +145,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                 else:
                     contents = read_html_file("chromosomeLength.html").render(context={"length": length})
             else:
-                contents = open("../Final project/html/error.html").read()
+                contents = open("/html/error.html").read()
 
         elif action == "/geneSeq":
             gene = instruction[5:]
@@ -161,7 +161,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             s = Seq(gene)
             person = data("/lookup/symbol/homo_sapiens/" + gene)
             start, end, name = person["start"], person["end"], person["id"]
-            length = s.len()
+            length = s.seq_len()
             chromosomes_dict = {"gene": gene, "start": start, "end": end, "length": length, "id": name}
             if application_type == "json=1":
                 contents, content_type = json_file(chromosomes_dict, "geneInfo.json")
@@ -170,7 +170,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         elif action == "/geneCalc":
             gene = instruction[5:]
             s = Seq(gene)
-            length = s.len()
+            length = s.seq_len()
             bases = ["A", "G", "T", "C"]
             results = []
             for i in bases:
