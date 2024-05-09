@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Index</title>
+    <title>INDEX</title>
 </head>
-<body style="background-color: azure;">
-    <h1>Human and Vertebrates genome browser</h1>
-    <h2>Basic Level Services</h2> <!-- change later-->
+<body style="background-color: pink;">
+    <h1>Browsing Human and Vertebrates genome</h1>
+    <h2>Services</h2>
     <form action="listSpecies" method="get">
-        <p>1) Number of species wanted from the genome database</p>
+        <p>1) List of species in the genome database</p>
         Limit:
         <input type="text" name="limit">
         <input type="submit" value="Send">
@@ -28,30 +28,30 @@
         <input type="submit" value="Send">
     </form>
     <form action ="geneSeq" method="get">
-        <p>4) Get the genetic sequence of a human gene</p>
-        Insert the desired gene:
+        <p>4) Get the sequence of a human gene</p>
+        Insert the gene:
         <input type="text" name="gene">
         <input type="submit" value="Get"><br>
     </form>
     <form action="geneInfo" method="get">
-        <p>5) Get information about a human gene!</p>
-        Insert the desired gene:
+        <p>5) Get all the information about a human gene (start, end, length, id and name of the chromosome)</p>
+        Insert the gene:
         <input type="text" name="gene">
         <input type="submit" value="Get">
     </form>
     <form action="geneCalc" method="get">
-        <p>6) Gene calculator</p>
-        Insert the desired gene:
+        <p>6) Gene calculator (Total length and the percentage of all the bases)</p>
+        Insert the gene:
         <input type="text" name="gene">
         <input type="submit" value="Send">
     </form>
     <form action="geneList" method="get">
-        <p>7) Get the names of the genes in the chromosome</p>
-        Insert the desired chromosome:
+        <p>7) Get the names of the genes located in the chromosome</p>
+        Insert the chromosome:
         <input type="text" name="chromo"><br>
-        Enter the start:
+        Enter the start point:
         <input type="text" name="start"><br>
-        Enter the end:
+        Enter the end point:
         <input type="text" name="end"><br>
         <input type="submit" value="Send">
     </form>

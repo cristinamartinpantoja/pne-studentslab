@@ -125,7 +125,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                     for chrom in person1["karyotype"]:
                         chromosomes.append(chrom)
                 else:
-                    chromosomes = "No karyotype found"
+                    chromosomes = "We could not find the karyotype"
                 if application_type == "json=1":
                     contents, content_type = json_file(chromosomes, "karyotype.json")
                 else:
@@ -150,7 +150,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         elif action == "/geneSeq":
             gene = instruction[5:]
             s = Seq(gene)
-            sequence = s.getting_seq()
+            sequence = s.get_sequence()
             gene_dict = {"gene": gene, "sequence": sequence}
             if application_type == "json=1":
                 contents, content_type = json_file(gene_dict, "geneSeq.json")
@@ -161,7 +161,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
             s = Seq(gene)
             person = data("/lookup/symbol/homo_sapiens/" + gene)
             start, end, name = person["start"], person["end"], person["id"]
-            length = s.length()
+            length = s.len()
             chromosomes_dict = {"gene": gene, "start": start, "end": end, "length": length, "id": name}
             if application_type == "json=1":
                 contents, content_type = json_file(chromosomes_dict, "geneInfo.json")
@@ -170,7 +170,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         elif action == "/geneCalc":
             gene = instruction[5:]
             s = Seq(gene)
-            length = s.length()
+            length = s.len()
             bases = ["A", "G", "T", "C"]
             results = []
             for i in bases:
